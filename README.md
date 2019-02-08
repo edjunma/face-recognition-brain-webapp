@@ -1,3 +1,11 @@
+SmartFace - v1
+Final project
+
+1.Clone repo
+2.Run `npm install`
+3.Run `npm start`
+4.Add your own API key in `src/App.js` file to connect to Clarifai.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
