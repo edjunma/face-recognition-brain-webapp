@@ -1,3 +1,11 @@
+## Face-Recognition-Brain-v1
+1. Clone repository
+2. Run `npm install`
+3. Run `npm start`
+4. For the application to work you must add in your own API key in the `src/App.js` files to connect to Clarifai.
+
+You can check out [Clarifai](https://www.clarifai.com/) here.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), guided by @aneagoie, and created by yours truly @edjunma.
 
 ## Available Scripts
