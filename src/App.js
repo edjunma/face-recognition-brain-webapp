@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
@@ -10,14 +9,10 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import './App.css';
 
-const app = new Clarifai.App({
- apiKey: '147046a299a541b4902c4001df6535a2'
-});
-
 const particlesOptions ={
   particles: {
     number: {
-      value: 30,
+      value: 40,
       density: {
         enable: true,
         value_area: 800
@@ -39,7 +34,9 @@ const initialState = {
       email: '',
       entries: 0,
       joined: ''
+  }
 }
+
 class App extends Component {
   constructor() {
     super();
@@ -71,7 +68,6 @@ class App extends Component {
   }
 
   displayFaceBox = (box) => {
-    console.log(box);
     this.setState({ box: box });
   }
 
@@ -81,14 +77,17 @@ class App extends Component {
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    app.models
-      .predict(
-        Clarifai.FACE_DETECT_MODEL,
-        this.state.input)
+      fetch('https://guarded-dawn-76000.herokuapp.com/imageurl', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          input: this.state.input
+        })
+      })
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch('http://localhost:3000/image'), {
+          fetch('https://guarded-dawn-76000.herokuapp.com/image'), {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.strinigy({
@@ -121,19 +120,22 @@ class App extends Component {
     return (
       <div className="App">
         <Particles className='particles'
-              params={particlesOptions}
-            />
+          params={particlesOptions}
+        />
         <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/>
         { route === 'home'
-          ?<div>
+          ? <div>
             <Logo />
-            <Rank name={this.state.user.name} entries={this.state.user.entries} />
+            <Rank
+              name={this.state.user.name}
+              entries={this.state.user.entries}
+            />
             <ImageLinkForm
               onInputChange={this.onInputChange}
               onPictureSubmit={this.onPictureSubmit}
             />
             <FaceRecognition box={box} imageUrl={imageUrl} />
-            </div>
+          </div>
             : (
               route === 'signin'
               ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
