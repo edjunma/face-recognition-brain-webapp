@@ -1,6 +1,17 @@
 # Face-Recognition-Brain-Webapp
-Final project for ZTM @aneagoie
+Application to detect faces in uploaded pictures and stores the number of entries in a PostgreSQL database.
 
+## Tools and Technologies used
+* HTML5 
+* CSS3 
+* JavaScript 
+* ReactJS
+* NodeJS
+* ExpressJS
+* Heroku
+* PostgreSQL
+
+## Run this project locally
 1. Clone this repo
 2. Run `npm install`
 3. Run `npm start`
